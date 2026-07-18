@@ -1,0 +1,415 @@
+<template>
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <h1 class="page-hero-title">
+        一站式灵活用工<br>
+        <span class="page-hero-title-grad">服务方案</span>
+      </h1>
+      <p class="page-hero-desc">
+        平台招聘、智能撮合、即时结算，全方位满足企业灵活用工需求
+      </p>
+    </div>
+  </section>
+
+  <!-- 结算方案 -->
+  <section class="section">
+    <div class="section-header reveal">
+      <span class="section-tag">结算方案</span>
+      <h2 class="section-title">选择适合您的 <span class="section-title-grad">服务方案</span></h2>
+      <p class="section-desc">两种方案满足不同规模企业需求，让用工成本更优、结算更高效</p>
+    </div>
+    <div style="max-width: 1000px; margin: 48px auto 0; padding: 0 24px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch;">
+        <!-- 福运宝 -->
+        <div class="reveal" style="padding: 40px; background: #fff; border-radius: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 2px solid #E6F4FF; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+            <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #1677FF, #4096FF); display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#fff" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2"/><path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <div style="padding: 6px 14px; background: rgba(22,119,255,0.08); color: #1677FF; font-size: 12px; font-weight: 600; border-radius: 100px;">基础版</div>
+          </div>
+          <h3 style="font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 8px;">福运宝</h3>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">企业结算税率为7.72%结算给灵工用户</p>
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <span style="font-size: 16px; color: #1677FF; font-weight: 600;">结算费率</span>
+              <span style="font-size: 48px; font-weight: 900; color: #1677FF;">7.72%</span>
+            </div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">综合结算费率</div>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0; flex: 1;">
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #E6F4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#1677FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              适用所有已认证企业，无需额外费用
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #E6F4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#1677FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              平台招聘服务
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #E6F4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#1677FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              AI智能撮合匹配
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #E6F4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#1677FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              资金 D+0 到账
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #E6F4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#1677FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              监管账户资金安全
+            </li>
+          </ul>
+          <a href="login.html" class="btn btn-outline" style="display: flex; align-items: center; justify-content: center; width: 100%; border: 2px solid #1677FF; color: #1677FF; font-weight: 600; padding: 18px 24px; margin-top: 32px; text-align: center; height: auto; min-height: 56px;">立即使用</a>
+        </div>
+
+        <!-- 如意宝 -->
+        <div class="reveal" style="padding: 40px; background: linear-gradient(180deg, #F7F0FF 0%, #FFFFFF 100%); border-radius: 20px; box-shadow: 0 4px 24px rgba(114,46,209,0.15); border: 2px solid #D6ADF0; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="padding: 6px 14px; background: rgba(114,46,209,0.1); color: #722ED1; font-size: 12px; font-weight: 600; border-radius: 100px;">SVIP版</div>
+            </div>
+            <div style="padding: 6px 14px; background: linear-gradient(135deg, #722ED1, #9254DE); color: #fff; font-size: 12px; font-weight: 600; border-radius: 100px;">推荐</div>
+          </div>
+          <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #722ED1, #9254DE); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#fff" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2"/><path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <h3 style="font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 8px;">如意宝</h3>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">企业支付598如意宝席位费后，税率改为6.72%结算给灵工用户</p>
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <span style="font-size: 16px; color: #722ED1; font-weight: 600;">席位费</span>
+              <span style="font-size: 48px; font-weight: 900; color: #722ED1;">¥598</span>
+              <span style="font-size: 14px; color: var(--text-muted);">/年</span>
+            </div>
+            <div style="margin-top: 12px; padding: 12px 16px; background: linear-gradient(135deg, #FFF7E6, #FFE7BA); border-radius: 10px;">
+              <div style="display: flex; align-items: baseline; gap: 6px;">
+                <span style="font-size: 13px; color: #FA8C16; font-weight: 600;">结算费率低至</span>
+                <span style="font-size: 32px; font-weight: 900; color: #FA8C16;">6.72%</span>
+              </div>
+              <div style="font-size: 12px; color: #FA8C16; margin-top: 2px;">比福运宝节省约1%</div>
+            </div>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0; flex: 1;">
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0E6FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#722ED1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              费率 6.72%（比福运宝节省约1%）
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0E6FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#722ED1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              平台招聘 + 落地服务
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0E6FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#722ED1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              精准派单 + 精准锁单
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0E6FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#722ED1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              免服务费 + 高效管理团队
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--text-secondary);">
+              <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0E6FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path d="M9 12l2 2 4-4" stroke="#722ED1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              专属一对一客服
+            </li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #722ED1, #9254DE); font-weight: 600; padding: 18px 24px; margin-top: 32px; text-align: center; border: none; height: auto; min-height: 56px;">立即购买</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding: 28px; background: var(--gray-50); border-radius: 16px;">
+        <h4 style="font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 16px;">方案对比</h4>
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--gray-200);">
+              <th style="text-align: left; padding: 12px 0; font-weight: 600; color: var(--text); font-size: 14px;">服务内容</th>
+              <th style="text-align: center; padding: 12px 0; font-weight: 600; color: #1677FF; font-size: 14px;">福运宝</th>
+              <th style="text-align: center; padding: 12px 0; font-weight: 600; color: #722ED1; font-size: 14px;">如意宝</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">结算费率</td>
+              <td style="text-align: center; padding: 12px 0; font-size: 14px; color: var(--text); font-weight: 600;">7.72%</td>
+              <td style="text-align: center; padding: 12px 0; font-size: 14px; color: #FA8C16; font-weight: 600;">6.72%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">席位费</td>
+              <td style="text-align: center; padding: 12px 0; font-size: 14px; color: var(--text-muted);">-</td>
+              <td style="text-align: center; padding: 12px 0; font-size: 14px; color: #722ED1; font-weight: 600;">¥598/年</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">平台招聘</td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">落地服务</td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#BFBFBF" stroke-width="2"/></svg></td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">精准派单</td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#BFBFBF" stroke-width="2"/></svg></td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--gray-200);">
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">免服务费</td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#BFBFBF" stroke-width="2"/></svg></td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr>
+              <td style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">专属客服</td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="10" stroke="#BFBFBF" stroke-width="2"/></svg></td>
+              <td style="text-align: center; padding: 12px 0;"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 12l2 2 4-4" stroke="#52C41A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能详情 -->
+  <section class="section">
+    <div class="feature-detail-grid">
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #1677FF, #4096FF); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="8.5" cy="7" r="4" stroke="#fff" stroke-width="2"/><line x1="20" y1="8" x2="20" y2="14" stroke="#fff" stroke-width="2"/><line x1="23" y1="11" x2="17" y2="11" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">平台招聘</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">拥有 5 万+ 注册服务者，覆盖蓝领、白领、专业技术等多个岗位类型。企业可快速发布招聘需求，AI 智能匹配候选人。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>5 万+ 注册服务者人才库</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>AI 智能筛选与匹配</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>支持全职、兼职、临时等多种用工形式</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>简历库搜索，快速找到合适人才</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #722ED1, #9254DE); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#fff" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2"/><path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">AI 智能撮合</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">基于机器学习算法，综合技能、经验、位置、评价等多维度智能匹配，1 分钟快速撮合。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #722ED1; margin-right: 8px;">&#10003;</span>多维度画像匹配，精准度高达 95%</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #722ED1; margin-right: 8px;">&#10003;</span>智能推荐候选人，减少人工筛选</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #722ED1; margin-right: 8px;">&#10003;</span>实时位置调度，就近派单更高效</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #722ED1; margin-right: 8px;">&#10003;</span>技能标签体系，精准匹配岗位</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #13C2C2, #08979C); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">及时性用工</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">支持按小时、按天、计件等多种结算方式，任务发布后快速响应，满足企业临时性用工需求。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>任务发布后 15 分钟内响应</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>支持小时工、临时工、计件工</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>应对订单波峰波谷，灵活调配</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>一站式管理，流程标准化</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #FA8C16, #FF7A45); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">监管账户资金安全</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">平台资金由持牌金融机构托管，监管账户确保资金安全，全程透明可追溯。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #FA8C16; margin-right: 8px;">&#10003;</span>持牌金融机构资金托管</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #FA8C16; margin-right: 8px;">&#10003;</span>监管账户，资金隔离</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #FA8C16; margin-right: 8px;">&#10003;</span>全程透明可追溯</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #FA8C16; margin-right: 8px;">&#10003;</span>银行级安全保障</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #52C41A, #73D13D); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#fff" stroke-width="2"/><polyline points="17 8 12 3 7 8" stroke="#fff" stroke-width="2"/><line x1="12" y1="3" x2="12" y2="15" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">D+0 到账</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">任务验收通过自动触发结算，银行级清算系统确保资金快速到账，支持 D+0 即时到账服务。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #52C41A; margin-right: 8px;">&#10003;</span>D+0 即时到账，资金秒到</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #52C41A; margin-right: 8px;">&#10003;</span>任务验收自动触发结算</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #52C41A; margin-right: 8px;">&#10003;</span>银行级清算系统</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #52C41A; margin-right: 8px;">&#10003;</span>7x24 小时结算服务</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #EB2F96, #F759AB); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#fff" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="#fff" stroke-width="2"/><line x1="16" y1="13" x2="8" y2="13" stroke="#fff" stroke-width="2"/><line x1="16" y1="17" x2="8" y2="17" stroke="#fff" stroke-width="2"/><polyline points="10 9 9 9 8 9" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">电子合同</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">在线签署电子合同，区块链存证，法律效力保障，告别纸质繁琐流程。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #EB2F96; margin-right: 8px;">&#10003;</span>在线签署，即签即生效</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #EB2F96; margin-right: 8px;">&#10003;</span>区块链存证，不可篡改</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #EB2F96; margin-right: 8px;">&#10003;</span>法律效力保障</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #EB2F96; margin-right: 8px;">&#10003;</span>模板库管理，快速生成</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #13C2C2, #08979C); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#fff" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2"/><path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">智能预警系统</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">基于AI算法的风险预警，实时监测用工异常行为，提前发现安全隐患，保障用工安全。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>AI智能风险识别</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>实时异常监测</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>多级预警通知</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #13C2C2; margin-right: 8px;">&#10003;</span>风险趋势分析</li>
+        </ul>
+      </div>
+
+      <div class="feature-detail-card reveal">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #1677FF, #4096FF); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="8.5" cy="7" r="4" stroke="#fff" stroke-width="2"/><line x1="20" y1="8" x2="20" y2="14" stroke="#fff" stroke-width="2"/><line x1="23" y1="11" x2="17" y2="11" stroke="#fff" stroke-width="2"/></svg>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">应急响应系统</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">快速响应突发安全事件，一键启动应急预案，多部门协同联动，保障人员安全。</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>一键启动预案</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>多部门协同联动</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>事件追踪记录</li>
+          <li style="padding: 6px 0; font-size: 14px; color: var(--text-secondary);"><span style="color: #1677FF; margin-right: 8px;">&#10003;</span>事后复盘分析</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="cta-banner brand-cta reveal">
+      <div class="cta-inner">
+        <h2 class="cta-title">开启灵活用工新体验</h2>
+        <p class="cta-desc">立即注册，体验民匠有约全平台服务</p>
+        <div class="cta-actions">
+          <a href="login.html" class="btn btn-white btn-large">免费试用</a>
+          <a href="contact.html" class="btn btn-ghost-white btn-large">联系商务</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+// 页面特定逻辑（如有）
+</script>
+
+<style>
+:root {
+  --brand-primary: #1677FF;
+  --brand-primary-dark: #0958D9;
+  --brand-primary-50: #E6F4FF;
+  --brand-primary-100: #BAE0FF;
+  --brand-grad: linear-gradient(135deg, #1677FF 0%, #4096FF 100%);
+  --brand-grad-light: linear-gradient(180deg, #E6F4FF 0%, #FFFFFF 100%);
+}
+</style>
+
+<style scoped>
+.page-hero {
+  position: relative;
+  padding: 80px 24px 60px;
+  background: var(--brand-grad-light);
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(22,119,255,0.1) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.page-hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.page-hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.page-hero-title-grad {
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.page-hero-desc {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+.section-soft-grad {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 50%, #FFFFFF 100%);
+}
+.brand-cta {
+  background: var(--brand-grad);
+}
+.feature-detail-card {
+  background: #fff;
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  transition: all 0.3s;
+}
+.feature-detail-card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+}
+.feature-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 900px) {
+  .feature-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-hero-title { font-size: 32px; }
+}
+</style>

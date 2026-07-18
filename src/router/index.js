@@ -18,7 +18,25 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
+    if (to.hash) {
+      return new Promise((resolve) => {
+        const el = document.querySelector(to.hash)
+        if (el) {
+          resolve({ el: to.hash, behavior: 'smooth' })
+        } else {
+          let count = 0
+          const interval = setInterval(() => {
+            const el2 = document.querySelector(to.hash)
+            if (el2 || count > 20) {
+              clearInterval(interval)
+              if (el2) resolve({ el: to.hash, behavior: 'smooth' })
+              else resolve({ top: 0 })
+            }
+            count++
+          }, 50)
+        }
+      })
+    }
     return { top: 0 }
   }
 })

@@ -1,4 +1,6 @@
 // ===== 民匠有约官网 - 主交互（Vue 版本封装） =====
+let _globalScriptsInitialized = false;
+
 export function initGlobalScripts() {
 (function() {
   // 登录与认证状态检测
@@ -498,28 +500,44 @@ export function initGlobalScripts() {
     });
   });
 
-  // 全局退出登录（事件委托，兼容动态渲染的 #logoutBtn / .user-dropdown-logout）
-  document.addEventListener('click', function(e) {
-    var logoutBtn = e.target.closest('#logoutBtn, .user-dropdown-logout');
-    if (logoutBtn) {
-      e.preventDefault();
-      e.stopPropagation();
-      doLogout();
-    }
-  });
+  // 全局事件监听器（只绑定一次）
+  if (!_globalScriptsInitialized) {
 
-  // 全局 .topbar-user 点击展开/收起下拉（兼容移动端无 hover 场景）
-  document.addEventListener('click', function(e) {
-    var topbarUser = e.target.closest('.topbar-user');
-    if (topbarUser) {
-      if (e.target.closest('.user-dropdown-logout, .nav-enter-system, .user-dropdown a, .user-dropdown button')) return;
-      e.stopPropagation();
-      var dropdown = topbarUser.querySelector('.user-dropdown');
-      if (dropdown) dropdown.classList.toggle('open');
-    } else {
-      document.querySelectorAll('.topbar-user .user-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+    // 全局退出登录（事件委托，兼容动态渲染的 #logoutBtn / .user-dropdown-logout）
+    document.addEventListener('click', function(e) {
+      var logoutBtn = e.target.closest('#logoutBtn, .user-dropdown-logout');
+      if (logoutBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        doLogout();
+      }
+    });
+
+    // 全局 .topbar-user 点击展开/收起下拉（兼容移动端无 hover 场景）
+    document.addEventListener('click', function(e) {
+      var topbarUser = e.target.closest('.topbar-user');
+      if (topbarUser) {
+        if (e.target.closest('.user-dropdown-logout, .nav-enter-system, .user-dropdown a, .user-dropdown button')) return;
+        e.stopPropagation();
+        var dropdown = topbarUser.querySelector('.user-dropdown');
+        if (dropdown) dropdown.classList.toggle('open');
+      } else {
+        document.querySelectorAll('.topbar-user .user-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+
+    // Navbar 滚动效果
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const cur = window.scrollY;
+        if (cur > 10) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        lastScroll = cur;
+      }, { passive: true });
     }
-  });
+  }
 
   var enterSystemBtn = document.getElementById('enterSystemBtn');
   if (enterSystemBtn) {
@@ -632,17 +650,22 @@ export function initGlobalScripts() {
 
 // ===== 悬浮侧边栏交互 =====
 (function() {
+  if (_globalScriptsInitialized) return;
+
   const sidebar = document.querySelector('.float-sidebar');
   const panels = document.querySelectorAll('.float-panel');
   const btns = document.querySelectorAll('.float-btn[data-panel]');
 
   function closeAllPanels() {
-    panels.forEach(p => p.classList.remove('active'));
-    btns.forEach(b => b.classList.remove('active'));
+    const allPanels = document.querySelectorAll('.float-panel');
+    const allBtns = document.querySelectorAll('.float-btn[data-panel]');
+    allPanels.forEach(p => p.classList.remove('active'));
+    allBtns.forEach(b => b.classList.remove('active'));
   }
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.float-btn[data-panel]');
+    if (btn) {
       e.stopPropagation();
       const panelId = btn.dataset.panel;
       const panel = document.getElementById(panelId);
@@ -657,25 +680,20 @@ export function initGlobalScripts() {
         panel.classList.add('active');
         btn.classList.add('active');
       }
-    });
-  });
-
-  panels.forEach(panel => {
-    panel.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-    
-    const closeBtn = panel.querySelector('.float-panel-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        closeAllPanels();
-      });
+      return;
     }
-  });
-
-  document.addEventListener('click', () => {
     closeAllPanels();
   });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.float-panel')) {
+      e.stopPropagation();
+    }
+    const closeBtn = e.target.closest('.float-panel-close');
+    if (closeBtn) {
+      closeAllPanels();
+    }
+  }, true);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -683,4 +701,7 @@ export function initGlobalScripts() {
     }
   });
 })();
+  if (!_globalScriptsInitialized) {
+    _globalScriptsInitialized = true;
+  }
 }

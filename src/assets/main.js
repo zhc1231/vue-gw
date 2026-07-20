@@ -803,6 +803,10 @@ export function refreshNavRight() {
   var userDropdown = document.getElementById('userDropdown');
   var navEnterSystem = document.getElementById('navEnterSystem');
 
+  if (navEnterSystem) {
+    navEnterSystem.addEventListener('click', enterSystem);
+  }
+
   function maskId(id) {
     if (!id) return '--';
     return id.substring(0, 4) + '****' + id.substring(id.length - 4);
@@ -902,12 +906,14 @@ export function refreshNavRight() {
     if (navEnterSystem) {
       var path = window.location.pathname;
       var fileName = path.substring(path.lastIndexOf('/') + 1);
-      var isEntryPage = fileName === 'index.html' || fileName === '' || fileName === 'vue-gw' || path === '/' || path === '/vue-gw/';
+      var isEntryPage = fileName === 'index.html' || fileName === '';
       navEnterSystem.style.display = (isLoggedIn && !isEntryPage) ? 'inline-flex' : 'none';
     }
 
     if (isLoggedIn) {
       updateUserInfo();
+      updateCertInfo();
+      updateProductButtons();
     }
   }
 
@@ -925,5 +931,7 @@ export function refreshNavRight() {
   }
 
   checkLoginStatus();
+  renderGlobalUserDropdowns();
+  initTopbarUserInfo();
 }
 

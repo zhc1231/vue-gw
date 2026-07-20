@@ -1,12 +1,4 @@
-// ===== 民匠有约官网 - 主交互（Vue 版本封装） =====
-// base 路径（来自 vite.config.js 的 base 配置，构建后为 '/vue-gw/'）
-const BASE = import.meta.env.BASE_URL;
-// 生成基于 base 的绝对路径，避免相对路径在不同路由下解析错误
-function absUrl(html) { return BASE + html; }
-
-let _globalScriptsInitialized = false;
-
-export function initGlobalScripts() {
+// ===== 民匠有约官网 - 主交互 =====
 (function() {
   // 登录与认证状态检测
   var isLoggedIn = localStorage.getItem('mjyy_logged_in') === 'true';
@@ -47,19 +39,19 @@ export function initGlobalScripts() {
         <div class="user-dropdown-body">
           <div class="user-dropdown-group">
             <div class="user-dropdown-group-title">账号管理</div>
-            <a href="${absUrl('account-center.html')}" class="user-dropdown-item">
+            <a href="account-center.html" class="user-dropdown-item">
               <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
               账号中心
             </a>
-            <a href="${absUrl('account-realname.html')}" class="user-dropdown-item">
+            <a href="account-realname.html" class="user-dropdown-item">
               <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
               实名信息
             </a>
-            <a href="${absUrl('account-security.html')}" class="user-dropdown-item">
+            <a href="account-security.html" class="user-dropdown-item">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
               账号安全
             </a>
-            <a href="${absUrl('account-permission.html')}" class="user-dropdown-item">
+            <a href="account-permission.html" class="user-dropdown-item">
               <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
               身份与权限
             </a>
@@ -67,7 +59,7 @@ export function initGlobalScripts() {
           <div class="user-dropdown-divider"></div>
           <div class="user-dropdown-group">
             <div class="user-dropdown-group-title">费用与资产</div>
-            <a href="${absUrl('account-billing.html')}" class="user-dropdown-item">
+            <a href="account-billing.html" class="user-dropdown-item">
               <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
               发票 / 合同 / 订单 / 卡券
             </a>
@@ -102,11 +94,11 @@ export function initGlobalScripts() {
     var platformNames = { minjiang: '民匠有约', anxinyun: '安心云', agent: '代理商平台' };
 
     var contactLink = navRight.dataset.contact === 'false' ? '' :
-      '<a href="' + absUrl('contact.html') + '" class="nav-link-text">联系商务</a>';
+      '<a href="contact.html" class="nav-link-text">联系商务</a>';
 
     navRight.innerHTML = `
       ${contactLink}
-      <a href="${absUrl('login.html')}" class="btn btn-primary" id="navLogin">登录平台</a>
+      <a href="login.html" class="btn btn-primary" id="navLogin">登录平台</a>
       <div class="user-status" id="userStatus" style="display:none;">
         <div class="user-avatar" id="userAvatar">用</div>
         <div class="user-name-wrap">
@@ -131,19 +123,19 @@ export function initGlobalScripts() {
           <div class="user-dropdown-body">
             <div class="user-dropdown-group">
               <div class="user-dropdown-group-title">账号管理</div>
-              <a href="${absUrl('account-center.html')}" class="user-dropdown-item">
+              <a href="account-center.html" class="user-dropdown-item">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
                 账号中心
               </a>
-              <a href="${absUrl('account-realname.html')}" class="user-dropdown-item">
+              <a href="account-realname.html" class="user-dropdown-item">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
                 实名信息
               </a>
-              <a href="${absUrl('account-security.html')}" class="user-dropdown-item">
+              <a href="account-security.html" class="user-dropdown-item">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
                 账号安全
               </a>
-              <a href="${absUrl('account-permission.html')}" class="user-dropdown-item">
+              <a href="account-permission.html" class="user-dropdown-item">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
                 身份与权限
               </a>
@@ -151,7 +143,7 @@ export function initGlobalScripts() {
             <div class="user-dropdown-divider"></div>
             <div class="user-dropdown-group">
               <div class="user-dropdown-group-title">费用与资产</div>
-              <a href="${absUrl('account-billing.html')}" class="user-dropdown-item">
+              <a href="account-billing.html" class="user-dropdown-item">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
                 发票 / 合同 / 订单
               </a>
@@ -191,7 +183,7 @@ export function initGlobalScripts() {
     ];
     keysToRemove.forEach(function(k) { localStorage.removeItem(k); });
     isLoggedIn = false;
-    window.location.href = absUrl('login.html');
+    window.location.href = 'login.html';
   }
 
   function initTopbarUserInfo() {
@@ -284,7 +276,7 @@ export function initGlobalScripts() {
       } else {
         loginBtn.style.display = 'inline-flex';
         loginBtn.textContent = loginBtnOriginalText;
-        loginBtn.href = absUrl('login.html');
+        loginBtn.href = 'login.html';
       }
     }
 
@@ -345,10 +337,10 @@ export function initGlobalScripts() {
     var identityVerified = localStorage.getItem('mjyy_identity_verified') === 'true' && (onlyEnterprise ? !!enterpriseData.companyName : (!!enterpriseData.companyName || !!personalData.realName));
     var contractSigned = localStorage.getItem('mjyy_contract_signed_' + platform) === 'true';
     if (identityVerified && contractSigned) {
-      window.location.href = absUrl(targetPage);
+      window.location.href = targetPage;
     } else {
       localStorage.setItem('mjyy_verify_target', platform);
-      window.location.href = absUrl('verify.html');
+      window.location.href = 'verify.html';
     }
   }
 
@@ -364,10 +356,10 @@ export function initGlobalScripts() {
     var identityVerified = localStorage.getItem('mjyy_identity_verified') === 'true' && (onlyEnterprise ? !!enterpriseData.companyName : (!!enterpriseData.companyName || !!personalData.realName));
     var contractSigned = localStorage.getItem('mjyy_contract_signed_' + platform) === 'true';
     if (identityVerified && contractSigned) {
-      window.location.href = absUrl(targetPage);
+      window.location.href = targetPage;
     } else {
       localStorage.setItem('mjyy_verify_target', platform);
-      window.location.href = absUrl('verify.html');
+      window.location.href = 'verify.html';
     }
   }
 
@@ -505,44 +497,28 @@ export function initGlobalScripts() {
     });
   });
 
-  // 全局事件监听器（只绑定一次）
-  if (!_globalScriptsInitialized) {
-
-    // 全局退出登录（事件委托，兼容动态渲染的 #logoutBtn / .user-dropdown-logout）
-    document.addEventListener('click', function(e) {
-      var logoutBtn = e.target.closest('#logoutBtn, .user-dropdown-logout');
-      if (logoutBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        doLogout();
-      }
-    });
-
-    // 全局 .topbar-user 点击展开/收起下拉（兼容移动端无 hover 场景）
-    document.addEventListener('click', function(e) {
-      var topbarUser = e.target.closest('.topbar-user');
-      if (topbarUser) {
-        if (e.target.closest('.user-dropdown-logout, .nav-enter-system, .user-dropdown a, .user-dropdown button')) return;
-        e.stopPropagation();
-        var dropdown = topbarUser.querySelector('.user-dropdown');
-        if (dropdown) dropdown.classList.toggle('open');
-      } else {
-        document.querySelectorAll('.topbar-user .user-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
-      }
-    });
-
-    // Navbar 滚动效果
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-      let lastScroll = 0;
-      window.addEventListener('scroll', () => {
-        const cur = window.scrollY;
-        if (cur > 10) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
-        lastScroll = cur;
-      }, { passive: true });
+  // 全局退出登录（事件委托，兼容动态渲染的 #logoutBtn / .user-dropdown-logout）
+  document.addEventListener('click', function(e) {
+    var logoutBtn = e.target.closest('#logoutBtn, .user-dropdown-logout');
+    if (logoutBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      doLogout();
     }
-  }
+  });
+
+  // 全局 .topbar-user 点击展开/收起下拉（兼容移动端无 hover 场景）
+  document.addEventListener('click', function(e) {
+    var topbarUser = e.target.closest('.topbar-user');
+    if (topbarUser) {
+      if (e.target.closest('.user-dropdown-logout, .nav-enter-system, .user-dropdown a, .user-dropdown button')) return;
+      e.stopPropagation();
+      var dropdown = topbarUser.querySelector('.user-dropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    } else {
+      document.querySelectorAll('.topbar-user .user-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+    }
+  });
 
   var enterSystemBtn = document.getElementById('enterSystemBtn');
   if (enterSystemBtn) {
@@ -655,22 +631,17 @@ export function initGlobalScripts() {
 
 // ===== 悬浮侧边栏交互 =====
 (function() {
-  if (_globalScriptsInitialized) return;
-
   const sidebar = document.querySelector('.float-sidebar');
   const panels = document.querySelectorAll('.float-panel');
   const btns = document.querySelectorAll('.float-btn[data-panel]');
 
   function closeAllPanels() {
-    const allPanels = document.querySelectorAll('.float-panel');
-    const allBtns = document.querySelectorAll('.float-btn[data-panel]');
-    allPanels.forEach(p => p.classList.remove('active'));
-    allBtns.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btns.forEach(b => b.classList.remove('active'));
   }
 
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.float-btn[data-panel]');
-    if (btn) {
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const panelId = btn.dataset.panel;
       const panel = document.getElementById(panelId);
@@ -685,20 +656,25 @@ export function initGlobalScripts() {
         panel.classList.add('active');
         btn.classList.add('active');
       }
-      return;
-    }
-    closeAllPanels();
+    });
   });
 
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('.float-panel')) {
+  panels.forEach(panel => {
+    panel.addEventListener('click', (e) => {
       e.stopPropagation();
-    }
-    const closeBtn = e.target.closest('.float-panel-close');
+    });
+    
+    const closeBtn = panel.querySelector('.float-panel-close');
     if (closeBtn) {
-      closeAllPanels();
+      closeBtn.addEventListener('click', () => {
+        closeAllPanels();
+      });
     }
-  }, true);
+  });
+
+  document.addEventListener('click', () => {
+    closeAllPanels();
+  });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -706,224 +682,40 @@ export function initGlobalScripts() {
     }
   });
 })();
-  if (!_globalScriptsInitialized) {
-    _globalScriptsInitialized = true;
-  }
-}
 
-export function refreshNavRight() {
-  var navRight = document.getElementById('navRight');
-  if (!navRight) return;
+// ===== SPA 链接重定向（在独立 HTML 页面中将 SPA 路由链接重定向到 Vue 应用） =====
+(function() {
+  var SPA_ROUTE_MAP = {
+    'index.html': '/vue-gw/',
+    'minjiang.html': '/vue-gw/minjiang',
+    'minjiang-emergency.html': '/vue-gw/minjiang-emergency',
+    'minjiang-features.html': '/vue-gw/minjiang-features',
+    'minjiang-solutions.html': '/vue-gw/minjiang-solutions',
+    'minjiang-cases.html': '/vue-gw/minjiang-cases',
+    'minjiang-help.html': '/vue-gw/minjiang-help',
+    'agent.html': '/vue-gw/agent',
+    'anxinyun.html': '/vue-gw/anxinyun'
+  };
 
-  var isLoggedIn = localStorage.getItem('mjyy_logged_in') === 'true';
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest && e.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href) return;
+    if (/^(https?:|tel:|mailto:|javascript:)/i.test(href)) return;
+    if (href.startsWith('#')) return;
 
-  function getCurrentPlatform() {
-    var path = window.location.pathname;
-    var fileName = path.substring(path.lastIndexOf('/') + 1);
-    if (fileName.startsWith('anxinyun')) return 'anxinyun';
-    if (fileName.startsWith('agent')) return 'agent';
-    if (fileName.startsWith('minjiang')) return 'minjiang';
-    if (fileName.startsWith('account')) return 'minjiang';
-    return localStorage.getItem('mjyy_from_platform') || 'minjiang';
-  }
+    var fileName = href.split('#')[0].split('?')[0];
+    var hashPart = href.indexOf('#') !== -1 ? href.substring(href.indexOf('#')) : '';
 
-  var platform = getCurrentPlatform();
+    if (fileName.startsWith('./')) fileName = fileName.substring(2);
+    if (fileName.startsWith('/')) fileName = fileName.substring(1);
 
-  var contactLink = navRight.dataset.contact === 'false' ? '' :
-    '<a href="' + absUrl('contact.html') + '" class="nav-link-text">联系商务</a>';
-
-  navRight.innerHTML = `
-    ${contactLink}
-    <a href="${absUrl('login.html')}" class="btn btn-primary" id="navLogin">登录平台</a>
-    <div class="user-status" id="userStatus" style="display:none;">
-      <div class="user-avatar" id="userAvatar">用</div>
-      <div class="user-name-wrap">
-        <span class="user-name" id="userName">企业用户</span>
-        <span class="user-account-badge" id="userBadge">主账号</span>
-      </div>
-      <svg class="user-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/></svg>
-      <div class="user-dropdown" id="userDropdown">
-        <div class="user-dropdown-header">
-          <div class="user-dropdown-avatar" id="dropdownAvatar">用</div>
-          <div class="user-dropdown-info">
-            <div style="display:flex;align-items:center;gap:6px;">
-              <div class="user-dropdown-name" id="dropdownName">企业用户</div>
-              <span class="user-account-badge" id="dropdownBadge" style="font-size:10px;padding:0 5px;border-radius:4px;background:var(--brand-primary-50);color:var(--brand-primary);font-weight:500;line-height:16px;">主账号</span>
-            </div>
-            <div class="user-dropdown-id" id="dropdownId">账号ID：--</div>
-            <div class="user-dropdown-tags" id="dropdownTags">
-              <span class="user-dropdown-tag" id="authTag">未认证</span>
-            </div>
-          </div>
-        </div>
-        <div class="user-dropdown-body">
-          <div class="user-dropdown-group">
-            <div class="user-dropdown-group-title">账号管理</div>
-            <a href="${absUrl('account-center.html')}" class="user-dropdown-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
-              账号中心
-            </a>
-            <a href="${absUrl('account-realname.html')}" class="user-dropdown-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
-              实名信息
-            </a>
-            <a href="${absUrl('account-security.html')}" class="user-dropdown-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
-              账号安全
-            </a>
-            <a href="${absUrl('account-permission.html')}" class="user-dropdown-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
-              身份与权限
-            </a>
-          </div>
-          <div class="user-dropdown-divider"></div>
-          <div class="user-dropdown-group">
-            <div class="user-dropdown-group-title">费用与资产</div>
-            <a href="${absUrl('account-billing.html')}" class="user-dropdown-item">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
-              发票 / 合同 / 订单
-            </a>
-          </div>
-        </div>
-        <div class="user-dropdown-footer">
-          <button class="user-dropdown-logout" id="logoutBtn">
-            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2"/><polyline points="16 17 21 12 16 7" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2"/></svg>
-            退出登录
-          </button>
-        </div>
-      </div>
-    </div>
-    <a href="#" class="nav-enter-system" id="navEnterSystem" style="display:none;">进入系统</a>
-  `;
-
-  navRight.dataset.rendered = 'true';
-
-  var loginBtn = document.getElementById('navLogin');
-  var userArea = document.getElementById('userStatus');
-  var userDropdown = document.getElementById('userDropdown');
-  var navEnterSystem = document.getElementById('navEnterSystem');
-
-  function maskId(id) {
-    if (!id) return '--';
-    return id.substring(0, 4) + '****' + id.substring(id.length - 4);
-  }
-
-  function updateUserInfo() {
-    if (!userArea) return;
-    var userData = JSON.parse(localStorage.getItem('mjyy_user_data') || '{}');
-    var personalData = JSON.parse(localStorage.getItem('mjyy_personal_data') || '{}');
-    var enterpriseData = JSON.parse(localStorage.getItem('mjyy_enterprise_data') || '{}');
-    var avatarEl = userArea.querySelector('.user-avatar');
-    var nameEl = userArea.querySelector('.user-name');
-    var badgeEl = userArea.querySelector('.user-account-badge');
-    var dropdownAvatarEl = userDropdown ? userDropdown.querySelector('.user-dropdown-avatar') : null;
-    var dropdownNameEl = userDropdown ? userDropdown.querySelector('.user-dropdown-name') : null;
-    var dropdownIdEl = userDropdown ? userDropdown.querySelector('.user-dropdown-id') : null;
-    var dropdownBadgeEl = userDropdown ? userDropdown.querySelector('.user-dropdown-info .user-account-badge') : null;
-    var authTagEl = userDropdown ? userDropdown.querySelector('.user-dropdown-tag') : null;
-
-    var displayName = '';
-    var displayAvatar = '用';
-
-    if (enterpriseData.companyName) {
-      displayName = enterpriseData.companyName;
-      displayAvatar = enterpriseData.companyName.charAt(0);
-    } else if (personalData.realName) {
-      displayName = personalData.realName;
-      displayAvatar = personalData.realName.charAt(0);
-    } else if (userData.mobile) {
-      var mobile = userData.mobile;
-      displayName = mobile.substring(0, 3) + '****' + mobile.substring(7);
-      displayAvatar = mobile.charAt(0);
-    } else if (userData.name) {
-      displayName = userData.name;
-      displayAvatar = userData.name.charAt(0);
-    }
-
-    if (avatarEl) avatarEl.textContent = displayAvatar;
-    if (nameEl && displayName) nameEl.textContent = displayName;
-
-    var accountType = localStorage.getItem('mjyy_account_type') || 'main';
-    var typeText = accountType === 'sub' ? '子账号' : '主账号';
-    if (badgeEl) {
-      badgeEl.textContent = typeText;
-      badgeEl.classList.toggle('sub', accountType === 'sub');
-    }
-    if (dropdownBadgeEl) {
-      dropdownBadgeEl.textContent = typeText;
-      dropdownBadgeEl.classList.toggle('sub', accountType === 'sub');
-    }
-
-    if (dropdownAvatarEl) dropdownAvatarEl.textContent = displayAvatar;
-    if (dropdownNameEl && displayName) {
-      dropdownNameEl.textContent = displayName;
-    }
-
-    var identityVerified = localStorage.getItem('mjyy_identity_verified') === 'true';
-    var selectedAuthType = localStorage.getItem('mjyy_auth_type') || 'enterprise';
-    var accountId = userData.accountId || userData.mobile || 'MJ' + Date.now().toString().slice(-8);
-
-    if (dropdownIdEl) {
-      dropdownIdEl.textContent = '账号ID：' + maskId(accountId);
-    }
-
-    if (authTagEl) {
-      if (identityVerified) {
-        authTagEl.textContent = '已认证';
-        authTagEl.className = 'user-dropdown-tag verified';
-      } else {
-        authTagEl.textContent = selectedAuthType === 'personal' ? '个人未认证' : '企业未认证';
-        authTagEl.className = 'user-dropdown-tag pending';
-      }
-    }
-  }
-
-  function checkLoginStatus() {
-    if (loginBtn) {
-      if (isLoggedIn) {
-        if (userArea) {
-          loginBtn.style.display = 'none';
-        } else {
-          loginBtn.textContent = '进入系统';
-          loginBtn.href = '#';
-          loginBtn.style.display = 'inline-flex';
-        }
-      } else {
-        loginBtn.style.display = 'inline-flex';
-        loginBtn.textContent = '登录平台';
-        loginBtn.href = absUrl('login.html');
-      }
-    }
-
-    if (userArea) {
-      userArea.style.display = isLoggedIn ? 'flex' : 'none';
-    }
-
-    if (navEnterSystem) {
-      var path = window.location.pathname;
-      var fileName = path.substring(path.lastIndexOf('/') + 1);
-      var isEntryPage = fileName === 'index.html' || fileName === '' || fileName === 'vue-gw' || path === '/' || path === '/vue-gw/';
-      navEnterSystem.style.display = (isLoggedIn && !isEntryPage) ? 'inline-flex' : 'none';
-    }
-
-    if (isLoggedIn) {
-      updateUserInfo();
-    }
-  }
-
-  if (userArea && userArea.classList.contains('user-status')) {
-    userArea.addEventListener('click', function(e) {
-      if (e.target.closest('.nav-enter-system') || e.target.closest('.user-dropdown-logout')) return;
+    if (SPA_ROUTE_MAP[fileName]) {
+      e.preventDefault();
       e.stopPropagation();
-      userArea.classList.toggle('open');
-      if (userDropdown) userDropdown.classList.toggle('open');
-    });
-    document.addEventListener('click', function() {
-      userArea.classList.remove('open');
-      if (userDropdown) userDropdown.classList.remove('open');
-    });
-  }
-
-  checkLoginStatus();
-}
+      window.location.href = SPA_ROUTE_MAP[fileName] + hashPart;
+    }
+  }, true);
+})();
 

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  { path: '/', redirect: '/minjiang' },
+  { path: '/', name: 'index', component: () => import('../views/IndexView.vue'), meta: { title: '民匠有约 - 企业数字化服务生态平台' } },
   { path: '/minjiang', name: 'home', component: () => import('../views/HomeView.vue'), meta: { title: '民匠有约 - 灵活用工数字化平台' } },
   { path: '/minjiang-emergency', name: 'emergency', component: () => import('../views/EmergencyView.vue'), meta: { title: '智慧应急 - 民匠有约' } },
   { path: '/minjiang-features', name: 'features', component: () => import('../views/FeaturesView.vue'), meta: { title: '服务方案 - 民匠有约' } },

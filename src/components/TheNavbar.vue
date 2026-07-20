@@ -55,6 +55,9 @@ function reinitNav() {
   })
 }
 
-onMounted(reinitNav)
+onMounted(() => {
+  initGlobalScripts()
+  reinitNav()
+})
 watch(() => route.path, reinitNav)
 </script>

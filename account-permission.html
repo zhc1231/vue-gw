@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>身份与权限 - 民匠有约</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --brand-primary: #1677FF;
+      --brand-primary-dark: #0958D9;
+      --brand-primary-50: #E6F4FF;
+      --brand-primary-100: #BAE0FF;
+      --sidebar-width: 240px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f5f6f7;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ===== 顶部导航 ===== */
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .topbar-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topbar-back {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .topbar-back:hover { color: var(--brand-primary); }
+
+    .topbar-user {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .topbar-user:hover {
+      background: var(--gray-100);
+    }
+
+    .topbar-user:hover .user-dropdown,
+    .topbar-user:focus-within .user-dropdown {
+      display: block;
+    }
+
+    .topbar-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--brand-primary-50);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .topbar-name {
+      font-size: 14px;
+      color: var(--text);
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .topbar-chevron {
+      width: 14px;
+      height: 14px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .topbar-user:hover .topbar-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* ===== 用户下拉菜单（阿里云风格） ===== */
+    .user-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 280px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      border: 1px solid var(--gray-200);
+      z-index: 1001;
+      display: none;
+      overflow: hidden;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .user-dropdown-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-dropdown-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--brand-primary-50);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .user-dropdown-info { flex: 1; min-width: 0; }
+
+    .user-dropdown-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-dropdown-id {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .user-dropdown-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .user-dropdown-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--brand-primary-50);
+      color: var(--brand-primary);
+      font-weight: 500;
+    }
+
+    .user-dropdown-tag.verified {
+      background: #E8F8EB;
+      color: #00B42A;
+    }
+
+    .user-dropdown-body {
+      padding: 8px 0;
+    }
+
+    .user-dropdown-group {
+      padding: 4px 0;
+    }
+
+    .user-dropdown-group-title {
+      padding: 8px 16px 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .user-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: background 0.2s;
+    }
+
+    .user-dropdown-item:hover {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+
+    .user-dropdown-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .user-dropdown-item-primary {
+      color: var(--brand-primary);
+      font-weight: 500;
+    }
+
+    .user-dropdown-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 8px 0;
+    }
+
+    .user-dropdown-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .user-dropdown-logout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .user-dropdown-logout:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      background: var(--brand-primary-50);
+    }
+
+    /* ===== 页面主体布局 ===== */
+    .page-layout {
+      display: flex;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-top: 64px;
+      min-height: 100vh;
+    }
+
+    /* ===== 左侧边栏 ===== */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: #fff;
+      border-right: 1px solid var(--gray-200);
+      position: fixed;
+      top: 64px;
+      bottom: 0;
+      left: calc((100vw - 1280px) / 2);
+      overflow-y: auto;
+      padding: 16px 0;
+    }
+
+    .sidebar-menu { list-style: none; }
+
+    .sidebar-item { position: relative; }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px 10px 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover {
+      color: var(--brand-primary);
+      background: var(--brand-primary-50);
+    }
+
+    .sidebar-link.active {
+      color: var(--brand-primary);
+      background: var(--brand-primary-50);
+      font-weight: 600;
+      border-right: 3px solid var(--brand-primary);
+    }
+
+    /* Parent menu highlight when child is active */
+    .sidebar-item.has-active > .sidebar-link {
+      color: var(--brand-primary);
+      background: var(--brand-primary-50);
+      font-weight: 600;
+      border-right: 3px solid var(--brand-primary);
+    }
+
+    .sidebar-item.has-active > .sidebar-link .sidebar-arrow {
+      transform: rotate(90deg);
+    }
+
+    .sidebar-link svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-arrow {
+      margin-left: auto;
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s;
+    }
+
+    .sidebar-item.open .sidebar-arrow {
+      transform: rotate(90deg);
+    }
+
+    .sidebar-submenu {
+      list-style: none;
+      display: none;
+      background: #fafafa;
+      padding: 4px 0;
+    }
+
+    .sidebar-item.open .sidebar-submenu {
+      display: block;
+    }
+
+    .sidebar-submenu .sidebar-link {
+      padding-left: 52px;
+      font-size: 13px;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 12px 16px;
+    }
+
+    .sidebar-section-title {
+      padding: 8px 16px 8px 24px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ===== 主内容区 ===== */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 24px 32px 40px;
+      min-width: 0;
+    }
+
+    .page-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .page-breadcrumb a { color: var(--text-muted); text-decoration: none; }
+    .page-breadcrumb a:hover { color: var(--brand-primary); }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    /* ===== 卡片组件 ===== */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card-body { padding: 20px; }
+
+    /* ===== 信息列表 ===== */
+    .info-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .info-label svg {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+    }
+
+    .info-value {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .info-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #E8F8EB;
+      color: #00B42A;
+    }
+
+    .info-status.pending {
+      background: #FFF3E8;
+      color: #FF7D00;
+    }
+
+    .info-action {
+      font-size: 13px;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+
+    .info-action:hover { text-decoration: underline; }
+
+    /* ===== 权限概览网格 ===== */
+    .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .permission-item {
+      padding: 20px;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+
+    .permission-item:hover {
+      border-color: var(--brand-primary);
+      box-shadow: 0 4px 16px rgba(22,119,255,0.1);
+      cursor: pointer;
+    }
+
+    .permission-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--brand-primary-50);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .permission-icon svg { width: 20px; height: 20px; }
+
+    .permission-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .permission-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ===== 成员表格 ===== */
+    .member-table-wrap { overflow-x: auto; }
+
+    .member-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .member-table th,
+    .member-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .member-table th {
+      background: #fafafa;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .member-table tbody tr:hover { background: #fafafa; }
+
+    .member-empty {
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .member-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .member-action {
+      color: var(--brand-primary);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .member-action:hover { text-decoration: underline; }
+
+    .member-action.danger { color: #F53F3F; }
+
+    /* ===== 模态框 ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s;
+    }
+
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      width: 480px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-overlay.visible .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: 6px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: var(--gray-50);
+    }
+
+    /* ===== 表单 ===== */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-label .required {
+      color: #F53F3F;
+      margin-left: 2px;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--brand-primary);
+    }
+
+    .form-error {
+      font-size: 12px;
+      color: #F53F3F;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+
+    .btn-default {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-default:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+
+    /* ===== 按钮 ===== */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--brand-primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover { background: var(--brand-primary-dark); }
+
+    /* ===== 空状态 ===== */
+    .empty-state {
+      padding: 48px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon svg { width: 28px; height: 28px; }
+
+    .empty-state-text {
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1280px) {
+      .sidebar { left: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 0 16px; }
+      .page-layout { flex-direction: column; }
+      .sidebar {
+        position: relative;
+        top: 0;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .main-content { margin-left: 0; padding: 16px; }
+      .permission-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="topbar-brand">
+        <img src="https://oss.minjiangyouyue.com/mjlogo/logo02.png" alt="logo" style="height:36px;border-radius:8px;">
+        <span class="topbar-title">账号中心</span>
+      </a>
+      <div class="topbar-right">
+        <a href="javascript:history.back()" class="topbar-back">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M19 12H5" stroke="currentColor" stroke-width="2"/><path d="M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2"/></svg>
+          返回
+        </a>
+        <div class="topbar-user" id="topbarUser">
+          <div class="topbar-avatar" id="topbarAvatar">用</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:1px;">
+            <span class="topbar-name" id="topbarName">用户</span>
+            <span class="user-account-badge" id="topbarBadge" style="font-size:10px;padding:0 5px;border-radius:4px;background:var(--brand-primary-50);color:var(--brand-primary);font-weight:500;line-height:16px;">主账号</span>
+          </div>
+          <svg class="topbar-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-avatar" id="dropdownAvatar">用</div>
+              <div class="user-dropdown-info">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div class="user-dropdown-name" id="dropdownName">用户</div>
+                  <span class="user-account-badge" id="dropdownBadge" style="font-size:10px;padding:0 5px;border-radius:4px;background:var(--brand-primary-50);color:var(--brand-primary);font-weight:500;line-height:16px;">主账号</span>
+                </div>
+                <div class="user-dropdown-id" id="dropdownId">账号ID：--</div>
+                <div class="user-dropdown-tags" id="dropdownTags">
+                  <span class="user-dropdown-tag" id="authTag">未认证</span>
+                </div>
+              </div>
+            </div>
+            <div class="user-dropdown-body">
+              <div class="user-dropdown-group">
+                <div class="user-dropdown-group-title">账号管理</div>
+                <a href="account-center.html" class="user-dropdown-item">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
+                  账号中心
+                </a>
+                <a href="account-realname.html" class="user-dropdown-item">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+                  实名信息
+                </a>
+                <a href="account-security.html" class="user-dropdown-item">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+                  账号安全
+                </a>
+                <a href="account-permission.html" class="user-dropdown-item active">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
+                  身份与权限
+                </a>
+              </div>
+              <div class="user-dropdown-divider"></div>
+              <div class="user-dropdown-group">
+                <div class="user-dropdown-group-title">费用与资产</div>
+                <a href="account-billing.html" class="user-dropdown-item">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
+                  发票 / 合同 / 订单 / 卡券
+                </a>
+              </div>
+              <div class="user-dropdown-divider"></div>
+              <div class="user-dropdown-group">
+                <a href="verify.html" class="user-dropdown-item user-dropdown-item-primary" id="verifyLink">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span id="verifyLinkText">去实名认证</span>
+                </a>
+              </div>
+            </div>
+            <div class="user-dropdown-footer">
+              <button class="user-dropdown-logout" id="logoutBtn">
+                <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2"/><polyline points="16 17 21 12 16 7" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+                退出登录
+              </button>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="nav-enter-system" id="navEnterSystem" style="display:inline-flex;align-items:center;justify-content:center;padding:6px 16px;border-radius:6px;background:var(--brand-primary);color:#fff;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;transition:all 0.2s;border:none;flex-shrink:0;white-space:nowrap;line-height:1.4;">进入系统</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页面主体 -->
+  <div class="page-layout">
+    <!-- 左侧边栏 -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="account-center.html" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
+            账号中心
+          </a>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li class="sidebar-section-title">我的主体</li>
+        <li class="sidebar-item open">
+          <a class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+            实名信息
+            <svg class="sidebar-arrow" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+          <ul class="sidebar-submenu">
+            <li><a href="account-realname.html?type=personal" class="sidebar-link">个人实名信息</a></li>
+            <li><a href="account-realname.html?type=enterprise" class="sidebar-link">企业实名信息</a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item">
+          <a href="account-wallet.html" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg>
+            资金账户
+          </a>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li class="sidebar-section-title">我的账号</li>
+        <li class="sidebar-item">
+          <a href="account-security.html" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+            账号安全
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="account-address.html" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+            地址和联系人
+          </a>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li class="sidebar-section-title">权限管理</li>
+        <li class="sidebar-item">
+          <a href="account-permission.html" class="sidebar-link active">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
+            身份与权限
+          </a>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li class="sidebar-section-title">费用与资产</li>
+        <li class="sidebar-item open">
+          <a class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
+            发票 / 合同 / 订单
+            <svg class="sidebar-arrow" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+          <ul class="sidebar-submenu">
+            <li><a href="account-billing.html?tab=invoice" class="sidebar-link">发票管理</a></li>
+            <li><a href="account-billing.html?tab=contract" class="sidebar-link">合同管理</a></li>
+            <li><a href="account-billing.html?tab=order" class="sidebar-link">订单管理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <div class="page-breadcrumb">
+        <a href="account-center.html">账号中心</a>
+        <span>/</span>
+        <span>身份与权限</span>
+      </div>
+      <h1 class="page-title">身份与权限</h1>
+
+      <!-- 当前身份 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">当前身份</div>
+        </div>
+        <div class="card-body">
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-label">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
+                用户角色
+              </div>
+              <div class="info-value">
+                <span>主账号管理员</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+                认证主体
+              </div>
+              <div class="info-value" id="identitySubject">--</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2"/><polyline points="22 4 12 14.01 9 11.01" stroke="currentColor" stroke-width="2"/></svg>
+                认证状态
+              </div>
+              <div class="info-value">
+                <span class="info-status" id="identityStatus">未认证</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+                主账号
+              </div>
+              <div class="info-value">
+                <span id="mainAccount">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 权限概览 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">权限概览</div>
+        </div>
+        <div class="card-body">
+          <div class="permission-grid">
+            <a href="account-center.html" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">账号管理</div>
+              <div class="permission-desc">查看并管理账号基础信息</div>
+            </a>
+            <a href="account-realname.html" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">实名认证</div>
+              <div class="permission-desc">个人/企业实名信息管理</div>
+            </a>
+            <a href="account-wallet.html" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">费用管理</div>
+              <div class="permission-desc">账户余额与资金流水</div>
+            </a>
+            <a href="account-billing.html?tab=invoice" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">发票管理</div>
+              <div class="permission-desc">发票申请与邮寄信息</div>
+            </a>
+            <a href="account-billing.html?tab=contract" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">合同管理</div>
+              <div class="permission-desc">合同签署与下载</div>
+            </a>
+            <a href="account-billing.html?tab=order" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke="currentColor" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">订单管理</div>
+              <div class="permission-desc">订单查询与续费</div>
+            </a>
+            <a href="account-permission.html" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">成员管理</div>
+              <div class="permission-desc">成员账号与权限分配</div>
+            </a>
+            <a href="account-security.html" class="permission-item" style="text-decoration:none;color:inherit;">
+              <div class="permission-icon">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="permission-title">安全设置</div>
+              <div class="permission-desc">密码、手机与登录保护</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 成员管理 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">成员管理</div>
+          <button class="btn-primary" id="addMemberBtn">
+            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+            添加成员
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="member-table-wrap">
+            <table class="member-table">
+              <thead>
+                <tr>
+                  <th>成员账号</th>
+                  <th>角色</th>
+                  <th>加入时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>138****8888</strong></td>
+                  <td>主账号管理员</td>
+                  <td>2024-01-01</td>
+                  <td><span style="color:var(--text-muted);font-size:13px;">系统默认</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 角色管理 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">角色管理</div>
+          <a href="account-role-edit.html" class="btn-primary" id="addRoleBtn">
+            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+            添加角色
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="member-table-wrap">
+            <table class="member-table">
+              <thead>
+                <tr>
+                  <th>角色名称</th>
+                  <th>权限范围</th>
+                  <th>平台权限</th>
+                  <th>成员数量</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>主账号管理员</strong></td>
+                  <td>全部权限</td>
+                  <td>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">民匠有约</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">安心云</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">代理商</span>
+                    </div>
+                  </td>
+                  <td>1</td>
+                  <td><span style="color:var(--text-muted);font-size:13px;">系统默认</span></td>
+                </tr>
+                <tr>
+                  <td><strong>财务专员</strong></td>
+                  <td>费用管理、发票管理、订单管理</td>
+                  <td>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">民匠有约</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#F2F3F5;color:#86909C;font-size:12px;">安心云</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#F2F3F5;color:#86909C;font-size:12px;">代理商</span>
+                    </div>
+                  </td>
+                  <td>0</td>
+                  <td class="member-actions"><a href="account-role-edit.html?name=财务专员" class="member-action">编辑</a><a href="javascript:void(0)" class="member-action danger" onclick="if(confirm('确定删除该角色吗？'))alert('删除成功');">删除</a></td>
+                </tr>
+                <tr>
+                  <td><strong>业务专员</strong></td>
+                  <td>合同管理、成员管理</td>
+                  <td>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">民匠有约</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#E8FFEA;color:#00B42A;font-size:12px;">安心云</span>
+                      <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;background:#F2F3F5;color:#86909C;font-size:12px;">代理商</span>
+                    </div>
+                  </td>
+                  <td>0</td>
+                  <td class="member-actions"><a href="account-role-edit.html?name=业务专员" class="member-action">编辑</a><a href="javascript:void(0)" class="member-action danger" onclick="if(confirm('确定删除该角色吗？'))alert('删除成功');">删除</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function() {
+      var isLoggedIn = localStorage.getItem('mjyy_logged_in') === 'true';
+      if (!isLoggedIn) { window.location.href = 'login.html'; return; }
+
+      var userData = JSON.parse(localStorage.getItem('mjyy_user_data') || '{}');
+      var personalData = JSON.parse(localStorage.getItem('mjyy_personal_data') || '{}');
+      var enterpriseData = JSON.parse(localStorage.getItem('mjyy_enterprise_data') || '{}');
+      var identityVerified = localStorage.getItem('mjyy_identity_verified') === 'true';
+      var selectedAuthType = localStorage.getItem('mjyy_auth_type') || 'enterprise';
+
+      function maskMobile(m) {
+        if (!m || m.length < 11) return m || '--';
+        return m.substring(0, 3) + '****' + m.substring(7);
+      }
+
+      function maskId(id) {
+        if (!id) return '--';
+        return id.substring(0, 4) + '****' + id.substring(id.length - 4);
+      }
+
+      var displayName = '';
+      if (enterpriseData.companyName) displayName = enterpriseData.companyName;
+      else if (personalData.realName) displayName = personalData.realName;
+      else if (userData.mobile) displayName = maskMobile(userData.mobile);
+      else if (userData.name) displayName = userData.name;
+      else displayName = '用户';
+
+      var avatarChar = displayName ? displayName.charAt(0) : '用';
+      var accountId = userData.mobile || userData.accountId || 'MJ' + Date.now().toString().slice(-8);
+
+      document.getElementById('topbarAvatar').textContent = avatarChar;
+      document.getElementById('topbarName').textContent = displayName;
+      document.getElementById('dropdownAvatar').textContent = avatarChar;
+      document.getElementById('dropdownName').textContent = displayName;
+      document.getElementById('dropdownId').textContent = '账号ID：' + maskId(accountId);
+
+      // 账号类型标签
+      var accountType = localStorage.getItem('mjyy_account_type') || 'main';
+      var typeText = accountType === 'sub' ? '子账号' : '主账号';
+      var topbarBadge = document.getElementById('topbarBadge');
+      var dropdownBadge = document.getElementById('dropdownBadge');
+      if (topbarBadge) {
+        topbarBadge.textContent = typeText;
+        topbarBadge.style.background = accountType === 'sub' ? '#FFF7E6' : 'var(--brand-primary-50)';
+        topbarBadge.style.color = accountType === 'sub' ? '#FF7D00' : 'var(--brand-primary)';
+      }
+      if (dropdownBadge) {
+        dropdownBadge.textContent = typeText;
+        dropdownBadge.style.background = accountType === 'sub' ? '#FFF7E6' : 'var(--brand-primary-50)';
+        dropdownBadge.style.color = accountType === 'sub' ? '#FF7D00' : 'var(--brand-primary)';
+      }
+
+      var authTag = document.getElementById('authTag');
+      var verifyLink = document.getElementById('verifyLink');
+      var verifyLinkText = document.getElementById('verifyLinkText');
+
+      if (identityVerified) {
+        authTag.textContent = '已认证';
+        authTag.classList.add('verified');
+        verifyLink.style.display = 'none';
+      } else {
+        authTag.textContent = selectedAuthType === 'personal' ? '个人未认证' : '企业未认证';
+        verifyLinkText.textContent = selectedAuthType === 'personal' ? '去个人认证' : '去企业认证';
+      }
+
+      var identitySubject = document.getElementById('identitySubject');
+      var identityStatus = document.getElementById('identityStatus');
+
+      if (selectedAuthType === 'personal') {
+        identitySubject.textContent = personalData.realName || '未填写';
+      } else {
+        identitySubject.textContent = enterpriseData.companyName || '未填写';
+      }
+
+      if (identityVerified) {
+        identityStatus.textContent = '已认证';
+        identityStatus.classList.remove('pending');
+      } else {
+        identityStatus.textContent = '未认证';
+        identityStatus.classList.add('pending');
+      }
+
+      // 主账号信息
+      var mainAccountEl = document.getElementById('mainAccount');
+      if (mainAccountEl) {
+        var accountType = localStorage.getItem('mjyy_account_type') || 'main';
+        if (accountType === 'sub') {
+          mainAccountEl.textContent = userData.mainAccountMobile ? maskMobile(userData.mainAccountMobile) : '由主账号管理';
+        } else {
+          mainAccountEl.textContent = '当前账号为主账号';
+        }
+      }
+
+      function maskMobile(phone) {
+        if (!phone || phone.length < 7) return phone || '';
+        return phone.slice(0, 3) + '****' + phone.slice(-4);
+      }
+
+      var modal = document.getElementById('addMemberModal');
+      function openAddMemberModal() {
+        modal.classList.add('visible');
+        document.getElementById('memberPhone').value = '';
+        document.getElementById('memberName').value = '';
+        document.getElementById('memberRole').value = '';
+        ['memberPhoneError', 'memberNameError', 'memberRoleError'].forEach(function(id) {
+          document.getElementById(id).textContent = '';
+        });
+      }
+      function closeAddMemberModal() {
+        modal.classList.remove('visible');
+      }
+      document.getElementById('addMemberBtn').addEventListener('click', openAddMemberModal);
+      document.getElementById('addMemberClose').addEventListener('click', closeAddMemberModal);
+      document.getElementById('addMemberCancel').addEventListener('click', closeAddMemberModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeAddMemberModal();
+      });
+
+      function showFieldError(fieldId, errorId, msg) {
+        var el = document.getElementById(fieldId);
+        if (el) el.style.borderColor = '#F53F3F';
+        document.getElementById(errorId).textContent = msg;
+      }
+      function clearFieldError(fieldId, errorId) {
+        var el = document.getElementById(fieldId);
+        if (el) el.style.borderColor = '';
+        document.getElementById(errorId).textContent = '';
+      }
+
+      document.getElementById('memberPhone').addEventListener('input', function() {
+        clearFieldError('memberPhone', 'memberPhoneError');
+      });
+      document.getElementById('memberName').addEventListener('input', function() {
+        clearFieldError('memberName', 'memberNameError');
+      });
+      document.getElementById('memberRole').addEventListener('change', function() {
+        clearFieldError('memberRole', 'memberRoleError');
+      });
+
+      document.getElementById('addMemberConfirm').addEventListener('click', function() {
+        var phone = document.getElementById('memberPhone').value.trim();
+        var name = document.getElementById('memberName').value.trim();
+        var role = document.getElementById('memberRole').value;
+        var hasError = false;
+        if (!phone) {
+          showFieldError('memberPhone', 'memberPhoneError', '请输入成员手机号');
+          hasError = true;
+        } else if (!/^1[3-9]\d{9}$/.test(phone)) {
+          showFieldError('memberPhone', 'memberPhoneError', '请输入正确的手机号');
+          hasError = true;
+        } else {
+          clearFieldError('memberPhone', 'memberPhoneError');
+        }
+        if (!name) {
+          showFieldError('memberName', 'memberNameError', '请输入成员姓名');
+          hasError = true;
+        } else {
+          clearFieldError('memberName', 'memberNameError');
+        }
+        if (!role) {
+          showFieldError('memberRole', 'memberRoleError', '请选择角色');
+          hasError = true;
+        } else {
+          clearFieldError('memberRole', 'memberRoleError');
+        }
+        if (hasError) return;
+
+        var btn = document.getElementById('addMemberConfirm');
+        btn.disabled = true;
+        btn.textContent = '添加中...';
+        setTimeout(function() {
+          var tbody = document.querySelector('.member-table-wrap tbody');
+          var tr = document.createElement('tr');
+          var today = new Date();
+          var dateStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+          tr.innerHTML = '<td><strong>' + maskMobile(phone) + '</strong></td><td>' + role + '</td><td>' + dateStr + '</td><td class="member-actions"><a href="javascript:void(0)" class="member-action">编辑</a><a href="javascript:void(0)" class="member-action danger" onclick="if(confirm(\'确定移除该成员吗？\'))this.closest(\'tr\').remove();">移除</a></td>';
+          tbody.appendChild(tr);
+          btn.disabled = false;
+          btn.textContent = '确认添加';
+          closeAddMemberModal();
+        }, 800);
+      });
+
+      // Dynamic parent highlight based on active child
+      document.querySelectorAll('.sidebar-item').forEach(function(item) {
+        if (item.querySelector('.sidebar-submenu .sidebar-link.active')) {
+          item.classList.add('has-active');
+          var arrow = item.querySelector('.sidebar-arrow');
+          if (arrow) arrow.style.transform = 'rotate(90deg)';
+        }
+      });
+
+      // Sidebar parent menu expand/collapse
+      document.querySelectorAll('.sidebar-item > .sidebar-link').forEach(function(link) {
+        var parent = link.parentElement;
+        var submenu = parent.querySelector('.sidebar-submenu');
+        if (submenu) {
+          link.addEventListener('click', function(e) {
+            // Don't toggle if clicking a direct link (with href)
+            if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+              return; // Let it navigate
+            }
+            e.preventDefault();
+            parent.classList.toggle('open');
+            var arrow = link.querySelector('.sidebar-arrow');
+            if (arrow) {
+              arrow.style.transform = parent.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+            }
+          });
+        }
+      });
+
+      // 下拉菜单点击展开（修复 style.css 冲突）
+      var topbarUser = document.getElementById('topbarUser');
+      var userDropdown = document.getElementById('userDropdown');
+      if (topbarUser && userDropdown) {
+        topbarUser.addEventListener('click', function(e) {
+          if (e.target.closest('.nav-enter-system')) return;
+          e.stopPropagation();
+          var isOpen = userDropdown.style.display === 'block';
+          userDropdown.style.display = isOpen ? 'none' : 'block';
+        });
+        document.addEventListener('click', function() {
+          userDropdown.style.display = 'none';
+        });
+      }
+
+      // 进入系统按钮
+      var enterBtn = document.getElementById('navEnterSystem');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var fromPlatform = localStorage.getItem('mjyy_from_platform') || 'minjiang';
+          if (fromPlatform === 'anxinyun') window.location.href = 'anxinyun.html';
+          else if (fromPlatform === 'agent') window.location.href = 'agent.html';
+          else window.location.href = 'minjiang.html';
+        });
+      }
+    })();
+  </script>
+  <script src="js/main.js"></script>
+
+  <!-- 添加成员模态框 -->
+  <div class="modal-overlay" id="addMemberModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">添加成员</div>
+        <button class="modal-close" id="addMemberClose">
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">成员手机号<span class="required">*</span></label>
+          <input type="text" class="form-input" id="memberPhone" placeholder="请输入成员手机号" maxlength="11">
+          <div class="form-error" id="memberPhoneError"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">成员姓名<span class="required">*</span></label>
+          <input type="text" class="form-input" id="memberName" placeholder="请输入成员姓名">
+          <div class="form-error" id="memberNameError"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">角色<span class="required">*</span></label>
+          <select class="form-select" id="memberRole">
+            <option value="">请选择角色</option>
+            <option value="财务专员">财务专员</option>
+            <option value="业务专员">业务专员</option>
+            <option value="运营专员">运营专员</option>
+          </select>
+          <div class="form-error" id="memberRoleError"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-default" id="addMemberCancel">取消</button>
+        <button class="btn-primary" id="addMemberConfirm">确认添加</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
